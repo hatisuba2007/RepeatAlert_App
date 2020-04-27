@@ -1,0 +1,43 @@
+<div class="product_index">
+<h1>登録商品一覧</h1>
+    <table class="table">
+    <thead>
+        <tr>
+         　 <th>No.</th>
+         　 <th>ブランド</th>
+        　  <th>商品名</th>
+        　  <th>使用期間</th>
+            <th colspan="2"></th>
+        </tr>
+    </thead>
+    <tbody>
+            <% @products.each do |product| %>
+        <tr>
+            <td><%= product.number %></td>
+            <td><%= product.brand %></td>
+            <td><%= product.name %></td>
+            <td> <%= product.term %></td>
+            <td><%= link_to "編集", "/products/#{product.id}/edit", class:"btn btn-primary mr-3" %></td>
+            <td><%= link_to "削除", product, method: :delete, class:"btn btn-primary mr-3" %></td>
+            
+            <% end %>
+        </tr>
+    </tbody>
+</table>
+</div>
+
+<div class="product_form">
+  <h2>商品マスター登録はこちら</h2>
+    <%= form_for(@product, url: "/products") do |f| %>
+      <%= f.label :number %>
+      <%= f.number_field :number, class: 'form-control' %>
+      <%= f.label :brand %>
+      <%= f.select :brand, [["ReFa", "ReFa"], ["PLOSION", "PLOSION"], ["SIXPAD", "SIXPAD"], ["MDNA SKIN", "MDNA SKIN"]], include_blank: "選択して下さい" %>
+      <%= f.label :name %>
+      <%= f.text_field :name, class: 'form-control' %>
+      <%= f.label :term %>
+      <%= f.select :term, [["10日", "10"], ["20日", "20"], ["30日", "30"], ["40日", "40"], ["50日", "50"], ["60日", "60"]], include_blank: "選択して下さい" %>
+
+      <%= f.submit "商品マスター登録", class: "btn btn-primary" %>
+    <% end %>
+</div>

@@ -1,0 +1,43 @@
+<div class="purchase_index">
+<h1>購入商品一覧</h1>
+        <table class="table">
+            <thead>
+                <tr>
+                 　 <th>お客様No.</th>
+                　  <th>お客様名</th>
+                　  <th>ブランド</th>
+                 　 <th>商品名</th>
+                　  <th>購入日</th>
+                　  <th>残り日数</th>
+                    <th colspan="2"></th>
+                </tr>
+            </thead>
+            <tbody>
+                    <% @purchases.each do |purchase| %>
+                <tr>
+                    <td><%= purchase.user_number %></td>
+                    <td><%= purchase.user.name %></td>
+                    <td><%= purchase.product.brand %></td>
+                    <td><%= purchase.product.name %></td>
+                    <td><%= purchase.created_at.strftime('%Y/%m/%d')  %></td>
+                    <td><%= purchase.product.term - (Date.today - purchase.created_at.to_date).to_i %></td>　
+                    <td><%= purchase.user.email %></td>
+                    <td><%= link_to "編集", "#", class:"btn btn-primary mr-3" %></td>
+                    <td><%= link_to "削除", purchase, method: :delete, class:"btn btn-primary mr-3" %></td>
+                    <% end %>
+                <tr>
+             </tbody>
+        </table>      
+</div>
+<div class="purchase_form">
+<h2>購入情報登録</h2>
+    <%= form_for(@purchase) do |f| %>
+      <%= f.label :user_number %>
+      <%= f.number_field :user_number, class: 'form-control' %>
+      <%= f.label :product_number %>
+      <%= f.number_field :product_number, class: 'form-control' %>
+
+      <%= f.submit "購入情報登録", class: "btn btn-primary" %>
+    <% end %>
+  </div>
+</div>
